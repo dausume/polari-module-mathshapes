@@ -1,6 +1,6 @@
 """
 @cross-cutting
-@module mathshapes.shape_geometry
+@module mathshapes.custom.shape_geometry
 @tags @xc:render-3d
 
 Pure geometry math for math-defined shapes — NO manager, NO I/O, stdlib
@@ -20,7 +20,7 @@ All lengths are cm; volumes cm³, areas cm². Coordinates are a flat
 [x, y, z]; a shape carries its own `center` and `axis`.
 
 @consumers
-  - mathshapes.shape_analysis (wraps these with manager lookups + CSG)
+  - mathshapes.custom.shape_analysis (wraps these with manager lookups + CSG)
 @see /MATH_SHAPES_PLAN.md
 """
 

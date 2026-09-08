@@ -1,6 +1,6 @@
 """
 @cross-cutting
-@module mathshapes.tower_analysis
+@module mathshapes.custom.tower_analysis
 @tags @xc:bindings, @xc:render-3d
 
 Geometry of an aquaponic tower (shape-2). Duck-typed manager, stdlib.
@@ -14,11 +14,11 @@ Every number carries how it was derived (labels travel).
                    volume as each tier's carrying capacity.
 
 @consumers
-  - mathshapes.tower_api / mathshapes.growth_prediction (shape-4)
+  - mathshapes.tower_api / mathshapes.custom.growth_prediction (shape-4)
 @see /MATH_SHAPES_PLAN.md (PHASE shape-2)
 """
 
-from mathshapes.shape_analysis import _named, shape_properties
+from mathshapes.custom.shape_analysis import _named, shape_properties
 
 _TIER_RES = 26           # grid resolution for a per-tier CSG pot
 

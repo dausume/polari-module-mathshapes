@@ -1,6 +1,6 @@
 """
 @cross-cutting
-@module mathshapes.shape_analysis
+@module mathshapes.custom.shape_analysis
 @tags @xc:bindings, @xc:render-3d
 
 Manager-facing analysis over MathShapeDefinition rows. Duck-typed
@@ -31,7 +31,7 @@ missing.
 import json
 import math
 
-from mathshapes.shape_geometry import (
+from mathshapes.custom.shape_geometry import (
     axial_mesh, classify_axis_aligned, ellipsoid_mesh, hollow_frustum_shell_mesh,
     primitive_inside, primitive_properties, quadric_as_ellipsoid,
     quadric_is_axis_aligned, quadric_value, tube_mesh,
@@ -273,7 +273,7 @@ def shape_properties(manager, shape_name, resolution=32):
                 'centroid': [round(v, 4) for v in centroid],
                 'method': 'analytic'}
     if family == 'spool':
-        from mathshapes.spool_geometry import spool_from_winding
+        from mathshapes.custom.spool_geometry import spool_from_winding
         params = _params(shape)
         wref = _named(manager, params.get('winding_ref', ''))
         if wref is None:
@@ -297,7 +297,7 @@ def shape_properties(manager, shape_name, resolution=32):
                                 for i in range(3)],
                 'method': spool['note']}
     if family == 'gear':
-        from mathshapes.gear_geometry import gear_coherence
+        from mathshapes.custom.gear_geometry import gear_coherence
         params = _params(shape)
 
         def _resolve(ref, key):
@@ -311,7 +311,7 @@ def shape_properties(manager, shape_name, resolution=32):
             return {'ok': False, 'shape': shape_name,
                     'family': family,
                     'error': '; '.join(coherent['refusals'])}
-        from mathshapes.gear_geometry import gear_volume
+        from mathshapes.custom.gear_geometry import gear_volume
         o = coherent['object']
         ra = coherent['derived']['tipRadius']
         return {'ok': True, 'shape': shape_name, 'family': family,
@@ -328,7 +328,7 @@ def shape_properties(manager, shape_name, resolution=32):
                           'exact profile-polygon extrusion (units '
                           'follow the consuming part)'}
     if family == 'derived-cylinder':
-        from mathshapes.spool_geometry import derived_cylinder
+        from mathshapes.custom.spool_geometry import derived_cylinder
         follower = derived_cylinder(manager, _params(shape),
                                     shape_properties)
         if not follower['ok']:
@@ -346,7 +346,7 @@ def shape_properties(manager, shape_name, resolution=32):
     if family == 'winding':
         # ws-1: analytic from the math object — the wire's own
         # volume (length x cross-section), not the bobbin envelope.
-        from mathshapes.winding_geometry import winding_coherence
+        from mathshapes.custom.winding_geometry import winding_coherence
         coherent = winding_coherence(_params(shape))
         if not coherent['ok']:
             return {'ok': False, 'shape': shape_name,
@@ -433,7 +433,7 @@ def _grid_properties(manager, shape, bounds, resolution):
 # surface sampling — the clean-render fix
 # --------------------------------------------------------------------------
 def _box_mesh(params):
-    from mathshapes.shape_geometry import _center, _num
+    from mathshapes.custom.shape_geometry import _center, _num
     c = _center(params)
     size = params.get('size', [1.0, 1.0, 1.0])
     hx, hy, hz = (float(size[0]) / 2, float(size[1]) / 2, float(size[2]) / 2)
@@ -461,7 +461,7 @@ def sample_surface(manager, shape_name, n=24):
     # curve. Coherence refusals surface here verbatim: an incoherent
     # tuning cannot be drawn because it is not a math object.
     if family == 'winding':
-        from mathshapes.winding_geometry import (
+        from mathshapes.custom.winding_geometry import (
             winding_coherence, winding_display_mesh,
         )
         params = _params(shape)
@@ -483,7 +483,7 @@ def sample_surface(manager, shape_name, n=24):
     # ws-4: the coupled family — spool derives from its winding,
     # followers derive from what they follow. Refusals verbatim.
     if family == 'spool':
-        from mathshapes.spool_geometry import (
+        from mathshapes.custom.spool_geometry import (
             spool_from_winding, spool_mesh,
         )
         params = _params(shape)
@@ -508,7 +508,7 @@ def sample_surface(manager, shape_name, n=24):
                           'every size derived live from '
                           + params.get('winding_ref', '')}
     if family == 'gear':
-        from mathshapes.gear_geometry import (
+        from mathshapes.custom.gear_geometry import (
             gear_coherence, gear_mesh,
         )
         params = _params(shape)
@@ -540,7 +540,7 @@ def sample_surface(manager, shape_name, n=24):
         # re-import here shadowed it for the whole function and
         # crashed every cylinder/cone/frustum sample below
         # (UnboundLocalError, caught by the mq-1 parity work).
-        from mathshapes.spool_geometry import derived_cylinder
+        from mathshapes.custom.spool_geometry import derived_cylinder
         follower = derived_cylinder(manager, _params(shape),
                                     shape_properties)
         if not follower['ok']:
@@ -565,12 +565,12 @@ def sample_surface(manager, shape_name, n=24):
         if kind == 'box':
             pts, tris = _box_mesh(params)
         elif kind == 'sphere':
-            from mathshapes.shape_geometry import _center, _num
+            from mathshapes.custom.shape_geometry import _center, _num
             r = _num(params, 'radius', 1.0)
             pts, tris = ellipsoid_mesh(_center(params), [r, r, r],
                                        n_lat=n // 2 or 8, n_lon=n)
         elif kind == 'ellipsoid':
-            from mathshapes.shape_geometry import _center
+            from mathshapes.custom.shape_geometry import _center
             radii = params.get('radii', [1.0, 1.0, 1.0])
             pts, tris = ellipsoid_mesh(
                 _center(params),
@@ -580,14 +580,14 @@ def sample_surface(manager, shape_name, n=24):
             pts, tris = hollow_frustum_shell_mesh(
                 params, n_lon=n, n_stack=max(6, n // 2))
         elif kind == 'annular_sector':
-            from mathshapes.shape_geometry import (
+            from mathshapes.custom.shape_geometry import (
                 _center as _ctr, annular_sector_mesh,
             )
             pts, tris = annular_sector_mesh(
                 params, _ctr(params), params.get('axis', 'z'),
                 n_arc=n)
         elif kind == 'arc_faced_bar':
-            from mathshapes.shape_geometry import (
+            from mathshapes.custom.shape_geometry import (
                 _center as _ctr2, arc_faced_bar_mesh,
             )
             pts, tris = arc_faced_bar_mesh(
@@ -637,7 +637,7 @@ def _csg_tube_params(manager, shape):
     primitives (same axis, same center in the perpendicular plane,
     bore radius < outer radius, bore at least as tall as the outer),
     return tube_mesh kwargs; else None (the marching fallback runs)."""
-    from mathshapes.shape_geometry import _axis_index, _center, _num
+    from mathshapes.custom.shape_geometry import _axis_index, _center, _num
     blob = _json(getattr(shape, 'csg_json', ''), {})
     if (blob.get('op') != 'difference'
             or len(blob.get('shapes') or []) != 2):

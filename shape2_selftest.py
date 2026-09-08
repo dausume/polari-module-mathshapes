@@ -2,7 +2,7 @@
 Selftest — shape-2: algorithmic modification + aqp-1 pot bridge + tower.
 
 Run from polari-framework/:
-    python3 -m mathshapes.selftest_shape2
+    python3 -m mathshapes.shape2_selftest
 
 Covers: modifying a hole-cylinder radius UP reduces the pot solid volume
 and widens the opening; the aqp-1 gravity invariant gates modification
@@ -21,17 +21,17 @@ SimSpace scene, idempotently on re-derive; honest refusals.
 import json
 from types import SimpleNamespace
 
-from aquaponics.pot_geometry import validate_pot
-from mathshapes.shape_analysis import shape_properties, sample_surface
+from aquaponics.custom.pot_geometry import validate_pot
+from mathshapes.custom.shape_analysis import shape_properties, sample_surface
 from mathshapes.shape_api import MathShapesAPI
-from mathshapes.shape_geometry import (
+from mathshapes.custom.shape_geometry import (
     classify_axis_aligned, hollow_frustum_shell_mesh, radius_at_z,
 )
 from mathshapes.shape_seed import SEED_MATH_SHAPES
-from mathshapes.shape_modify import (
+from mathshapes.custom.shape_modify import (
     modify_parameter, modify_pot_hole, pot_shape_from_definition,
 )
-from mathshapes.tower_analysis import tower_geometry
+from mathshapes.custom.tower_analysis import tower_geometry
 from mathshapes.tower_seed import SEED_TOWERS
 
 PASS, FAIL = '\033[0;32mPASS\033[0m', '\033[0;31mFAIL\033[0m'

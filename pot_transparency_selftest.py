@@ -3,7 +3,7 @@ Selftest — pot render transparency toggles (aquaponics-pot-shape
 phase 5) + the separate water-flow scene (phase 3).
 
 Run from polari-framework/:
-    python3 -m mathshapes.selftest_pot_transparency
+    python3 -m mathshapes.pot_transparency_selftest
 
 Covers: wall_transparent/soil_transparent are explicit PotDefinition
 knobs — DEFAULT TRUE as of 2026-07-15 (Dustin: "the pots and soil
@@ -24,10 +24,10 @@ waterslice: freestanding entry.
 import json
 from types import SimpleNamespace
 
-from mathshapes.pot_scene import (
+from mathshapes.custom.pot_scene import (
     ensure_pot_viz_scene, ensure_pot_water_viz_scene,
 )
-from mathshapes.shape_modify import pot_shape_from_definition
+from mathshapes.custom.shape_modify import pot_shape_from_definition
 from mathshapes.shape_seed import SEED_MATH_SHAPES
 from mathshapes.tower_seed import SEED_TOWERS
 

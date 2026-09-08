@@ -1,5 +1,5 @@
 """
-@module mathshapes.shape_equations
+@module mathshapes.custom.shape_equations
 
 mq-1 (MATRIX_SHAPE_COHERENCE_PLAN; Dustin 2026-08-01: "all shapes
 defined using matrix equations if possible ... so we can make
@@ -43,7 +43,7 @@ polariServer seed pass (seed_shape_equations), mq-2/mq-3
 import json
 import math
 
-from mathshapes.shape_geometry import (
+from mathshapes.custom.shape_geometry import (
     box_plane_quadrics, cone_quadric_matrix,
     ellipsoid_quadric_matrix, plane_quadric_matrix, quadric_value,
     sphere_quadric_matrix,
@@ -402,7 +402,7 @@ def equation_parity(manager, shape_name, n=24):
     reports the worst |F| relative to the shape's scale, plus the
     interior/exterior sign probes. Tolerance absorbs voxel-fallback
     meshes honestly by REPORTING method alongside."""
-    from mathshapes.shape_analysis import (
+    from mathshapes.custom.shape_analysis import (
         sample_surface, shape_properties,
     )
     props = shape_properties(manager, shape_name)
@@ -460,7 +460,7 @@ def seed_shape_equations(manager, shape_names=None):
                  'inserted': [], 'updated': [],
                  'errors': ['matrices module not importable — '
                             'shape equations need it enabled']}]
-    from composition.seed_upsert import upsert_seed_pairs
+    from composition.custom.seed_upsert import upsert_seed_pairs
     table = (getattr(manager, 'objectTables', None)
              or {}).get('MathShapeDefinition', {})
     names = shape_names or sorted(

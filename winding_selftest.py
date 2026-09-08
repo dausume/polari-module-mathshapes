@@ -1,7 +1,7 @@
 """
 Selftest for the winding math object (ws-1).
 
-Run from polari-framework/:  python3 -m mathshapes.selftest_winding
+Run from polari-framework/:  python3 -m mathshapes.winding_selftest
 
 Covers: coherence (valid tunings form the math object with
 hand-checkable derived numbers; incoherent tunings REFUSE naming
@@ -15,7 +15,7 @@ generator draws, so the object shown IS the equation.
 import math
 import types
 
-from mathshapes.winding_geometry import (
+from mathshapes.custom.winding_geometry import (
     _local_point, _world, winding_coherence, winding_matrix_equation,
     winding_segments, winding_tube_mesh,
 )
@@ -93,7 +93,7 @@ if __name__ == '__main__':
           mesh['method'])
 
     print('== suite: ws-4 — the coupled family cascades ==')
-    from mathshapes.spool_geometry import (
+    from mathshapes.custom.spool_geometry import (
         derived_cylinder, spool_from_winding,
     )
     SPOOL = {'barrel_wall': 0.3, 'flange_thickness': 0.5,
@@ -126,7 +126,7 @@ if __name__ == '__main__':
           not spool_from_winding(
               GOOD, {**SPOOL, 'barrel_wall': 1.5})['ok'])
 
-    from mathshapes.shape_analysis import shape_properties
+    from mathshapes.custom.shape_analysis import shape_properties
     _shape_rows = {
         'w': types.SimpleNamespace(
             name='w', family='winding',
@@ -164,7 +164,7 @@ if __name__ == '__main__':
 
     print('== suite: ws-4 — display LOD (the equation never '
           'changes) ==')
-    from mathshapes.winding_geometry import winding_display_mesh
+    from mathshapes.custom.winding_geometry import winding_display_mesh
     big = winding_coherence({**GOOD, 'turns': 5000,
                              'window_length': 500.0})
     solid = winding_display_mesh(big['object'], {})
@@ -183,7 +183,7 @@ if __name__ == '__main__':
           and 'turns rendered' in wire['method'])
 
     print('== suite: gr-3 — the gear with real, tunable teeth ==')
-    from mathshapes.gear_geometry import (
+    from mathshapes.custom.gear_geometry import (
         gear_coherence, gear_mesh, gear_profile,
     )
     GEAR = {'module': 0.3, 'teeth': 8, 'pressure_angle_deg': 20.0,

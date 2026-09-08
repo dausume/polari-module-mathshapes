@@ -1,8 +1,8 @@
 """
-Selftest — mathshapes.soil_modify (aquaponics-pot-shape phase 4).
+Selftest — mathshapes.custom.soil_modify (aquaponics-pot-shape phase 4).
 
 Run from polari-framework/:
-    python3 -m mathshapes.selftest_soil
+    python3 -m mathshapes.soil_selftest
 
 Covers: soil is a real quadric equation (+ derived LaTeX) whose
 radius profile is read directly off the wall's OWN inner-surface
@@ -19,12 +19,12 @@ from-pot route auto-derives soil and lists it in the {pot}-viz scene.
 import json
 from types import SimpleNamespace
 
-from mathshapes.shape_analysis import sample_surface
+from mathshapes.custom.shape_analysis import sample_surface
 from mathshapes.shape_api import MathShapesAPI
-from mathshapes.shape_geometry import radius_at_z
-from mathshapes.shape_modify import _pot_core_dimensions, pot_shape_from_definition
+from mathshapes.custom.shape_geometry import radius_at_z
+from mathshapes.custom.shape_modify import _pot_core_dimensions, pot_shape_from_definition
 from mathshapes.shape_seed import SEED_MATH_SHAPES
-from mathshapes.soil_modify import soil_shape_from_definition
+from mathshapes.custom.soil_modify import soil_shape_from_definition
 from mathshapes.tower_seed import SEED_TOWERS
 
 PASS, FAIL = '\033[0;32mPASS\033[0m', '\033[0;31mFAIL\033[0m'

@@ -2,7 +2,7 @@
 Selftest — shape-3: CAD import/export via the cad-engines worker + MinIO.
 
 Run from polari-framework/:
-    python3 -m mathshapes.selftest_shape3
+    python3 -m mathshapes.shape3_selftest
 
 Stdlib-only: the cad-engines worker HTTP seam and the MinIO object store
 are both faked. Covers: an imported STL maps to shape + mesh + import
@@ -18,7 +18,8 @@ import base64
 import json
 from types import SimpleNamespace
 
-from mathshapes import cad_import, cad_minio
+from mathshapes.custom import cad_import
+from mathshapes.custom import cad_minio
 
 PASS, FAIL = '\033[0;32mPASS\033[0m', '\033[0;31mFAIL\033[0m'
 _results = []

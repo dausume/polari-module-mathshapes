@@ -1,6 +1,6 @@
 """
 @cross-cutting
-@module mathshapes.growth_prediction
+@module mathshapes.custom.growth_prediction
 @tags @xc:bindings, @xc:render-3d
 
 shape-4 — PREDICTIVE root/plant growth in an aquaponic tower, with the
@@ -29,9 +29,9 @@ labels travel with numbers). Duck-typed manager, stdlib only.
 @see /MATH_SHAPES_PLAN.md (PHASE shape-4), /AQUAPONICS_POT_SHAPE_PLAN.md phase 9
 """
 
-from aquaponics import plant_growth_simplified
-from mathshapes.tower_analysis import tower_geometry
-from plant_morphology.morphology_analysis import confinement_assessment
+from aquaponics.custom import plant_growth_simplified
+from mathshapes.custom.tower_analysis import tower_geometry
+from plant_morphology.custom.morphology_analysis import confinement_assessment
 
 
 def _rows(manager, class_name):

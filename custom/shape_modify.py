@@ -1,6 +1,6 @@
 """
 @cross-cutting
-@module mathshapes.shape_modify
+@module mathshapes.custom.shape_modify
 @tags @xc:bindings
 
 Algorithmic / parametric MODIFICATION of math shapes (shape-2). The
@@ -30,15 +30,15 @@ Duck-typed manager, stdlib. Mutations update the in-memory row
 (objectTables); durable persistence is the CRUDE layer's job.
 
 @consumers
-  - mathshapes.shape_api (POST /modify), mathshapes.tower_analysis
+  - mathshapes.shape_api (POST /modify), mathshapes.custom.tower_analysis
 @see /MATH_SHAPES_PLAN.md (PHASE shape-2)
 """
 
 import json
 import math
 
-from mathshapes.shape_analysis import _named, _params, shape_properties
-from mathshapes.shape_geometry import cone_quadric_latex, cone_quadric_matrix, radius_at_z
+from mathshapes.custom.shape_analysis import _named, _params, shape_properties
+from mathshapes.custom.shape_geometry import cone_quadric_latex, cone_quadric_matrix, radius_at_z
 
 _AXIS_INDEX = {'x': 0, 'y': 1, 'z': 2}
 
@@ -391,7 +391,7 @@ def pot_shape_from_definition(manager, pot_name, persist=True):
     if pot is None:
         return {'ok': False,
                 'error': f"no PotDefinition named '{pot_name}'"}
-    from aquaponics.pot_geometry import validate_pot
+    from aquaponics.custom.pot_geometry import validate_pot
     from aquaponics.pot_basis import MIN_HOLE_DIAMETER_MM
     validity = validate_pot(manager, pot_name)
 
@@ -637,7 +637,7 @@ def modify_pot_hole(manager, pot_name, param, value, hole_index=0):
     this function's existing "preview only, not the primary edit path"
     contract (the primary path is CRUDE PUT on PotHole, then re-POST
     from-pot)."""
-    from aquaponics.pot_geometry import validate_pot
+    from aquaponics.custom.pot_geometry import validate_pot
     hole_name = f'{pot_name}-hole-{hole_index}'
     if _named(manager, hole_name) is None:
         built = pot_shape_from_definition(manager, pot_name)

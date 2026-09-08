@@ -1,5 +1,5 @@
 """
-@module mathshapes.selftest_shape_equations
+@module mathshapes.shape_equations_selftest
 
 mq-1 selftests: quadric builders hand-checked, the implicit field
 (inside<0/surface=0/outside>0) across families incl. CSG, the
@@ -9,17 +9,17 @@ matrix_equation_executor (numpy leg), the M1 motor shapes all
 emitting, and the honest refusals (winding = parametric curve,
 unknown family = named absence).
 
-Run from polari-framework/: python3 -m mathshapes.selftest_shape_equations
+Run from polari-framework/: python3 -m mathshapes.shape_equations_selftest
 """
 
 import json
 import types
 
-from mathshapes.shape_equations import (
+from mathshapes.custom.shape_equations import (
     equation_parity, field_value, seed_shape_equations,
     shape_equation_rows, surface_quadrics,
 )
-from mathshapes.shape_geometry import (
+from mathshapes.custom.shape_geometry import (
     box_plane_quadrics, plane_quadric_matrix, quadric_value,
     sphere_quadric_matrix,
 )
@@ -188,7 +188,7 @@ check('drawn-surface parity: signs correct, median residual of '
       and par['medianResidual'] < 0.02,
       json.dumps(par)[:200])
 
-from motors.motor_shapes import (        # noqa: E402
+from motors.motor_shapes_seed import (        # noqa: E402
     SEED_M1_PART_SHAPES,
 )
 m1_mgr = _mgr([types.SimpleNamespace(

@@ -3,7 +3,7 @@ Selftest — shape-4: predictive root/plant growth in an aquaponic tower,
 with the math-shape tier geometry as the carrying capacity.
 
 Run from polari-framework/:
-    python3 -m mathshapes.selftest_shape4
+    python3 -m mathshapes.shape4_selftest
 
 Covers: a WELL-SIZED tier (big pot) predicts healthy growth to maturity
 ("fits", root ball fits, not geometrically capped); an UNDER-SIZED tier
@@ -18,8 +18,8 @@ dwarfed→fits; honest refusals (missing tower, missing root model).
 import json
 from types import SimpleNamespace
 
-from mathshapes.growth_prediction import tower_growth_forecast
-from mathshapes.shape_modify import modify_parameter
+from mathshapes.custom.growth_prediction import tower_growth_forecast
+from mathshapes.custom.shape_modify import modify_parameter
 
 PASS, FAIL = '\033[0;32mPASS\033[0m', '\033[0;31mFAIL\033[0m'
 _results = []

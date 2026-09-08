@@ -1,6 +1,6 @@
 """
 @cross-cutting
-@module mathshapes.soil_modify
+@module mathshapes.custom.soil_modify
 @tags @xc:bindings
 
 aquaponics-pot-shape phase 4 — the soil fill, derived from the SAME
@@ -28,11 +28,11 @@ usable interior height when it would otherwise reach the rim.
 
 import json
 
-from mathshapes.shape_modify import (
+from mathshapes.custom.shape_modify import (
     _ShapeRow, _f, _insert_rows, _pot_core_dimensions, _pot_named,
     build_quadric_eq_row,
 )
-from mathshapes.shape_geometry import radius_at_z
+from mathshapes.custom.shape_geometry import radius_at_z
 
 
 def soil_shape_from_definition(manager, pot_name, persist=True):

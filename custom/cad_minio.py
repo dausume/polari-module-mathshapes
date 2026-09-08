@@ -1,6 +1,6 @@
 """
 @cross-cutting
-@module mathshapes.cad_minio
+@module mathshapes.custom.cad_minio
 @tags @xc:bindings
 
 Thin MinIO helpers for CAD import/export, layered on the suite's

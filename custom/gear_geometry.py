@@ -1,5 +1,5 @@
 """
-@module mathshapes.gear_geometry
+@module mathshapes.custom.gear_geometry
 
 gr-3 (named a seam since the gears arc; demanded by Dustin
 2026-08-01): "the math definition of the gear should be accurate,
@@ -31,8 +31,8 @@ CYCLOIDAL profiles for very low counts; that family stays a named
 seam (gears.PROFILE_FAMILIES has it), and this involute-with-shift
 object says so in its note rather than pretending to be it.
 
-@consumers mathshapes.shape_analysis (family 'gear'),
-motors.motor_shapes seeds, mathshapes.selftest_winding
+@consumers mathshapes.custom.shape_analysis (family 'gear'),
+motors.motor_shapes_seed seeds, mathshapes.winding_selftest
 """
 
 import math

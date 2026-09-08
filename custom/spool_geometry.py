@@ -1,5 +1,5 @@
 """
-@module mathshapes.spool_geometry
+@module mathshapes.custom.spool_geometry
 
 ws-4 (Dustin 2026-07-31): "define a spool geometry math object for
 the stator that corresponds DIRECTLY with values defined for the
@@ -27,14 +27,14 @@ through the whole family. Incoherence REFUSES: a winding that
 overflows its flanges, a wall thicker than the barrel, a follower
 referencing a value that does not exist.
 
-@consumers mathshapes.shape_analysis (families 'spool',
-'derived-cylinder'), motors.motor_shapes seeds,
-mathshapes.selftest_winding
+@consumers mathshapes.custom.shape_analysis (families 'spool',
+'derived-cylinder'), motors.motor_shapes_seed seeds,
+mathshapes.winding_selftest
 """
 
 import math
 
-from mathshapes.winding_geometry import winding_coherence
+from mathshapes.custom.winding_geometry import winding_coherence
 
 AXIS_OF = {(1.0, 0.0, 0.0): 'x', (0.0, 1.0, 0.0): 'y',
            (0.0, 0.0, 1.0): 'z'}
@@ -135,7 +135,7 @@ def spool_from_winding(winding_params, spool_params):
 
 def spool_mesh(spool, n_lon=32):
     """Barrel tube + two flange discs, one vertex set."""
-    from mathshapes.shape_geometry import tube_mesh
+    from mathshapes.custom.shape_geometry import tube_mesh
     o = spool['object']
     pts, tris = [], []
 

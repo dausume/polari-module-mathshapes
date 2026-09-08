@@ -1,5 +1,5 @@
 """
-@module mathshapes.winding_geometry
+@module mathshapes.custom.winding_geometry
 
 ws-1 (Dustin 2026-07-31): "define the actual wire winding via a
 matrix equation ... based on the radius, the center of the stator
@@ -38,8 +38,8 @@ emitted as a MatrixEquationDefinition spec (numpy expr + bindings)
 and `winding_points` implements the SAME formula — the parity
 selftest proves the drawn object IS the equation.
 
-@consumers mathshapes.shape_analysis (family 'winding'),
-motors.motor_shapes (the M0 v2 coil), selftest_shapes
+@consumers mathshapes.custom.shape_analysis (family 'winding'),
+motors.motor_shapes_seed (the M0 v2 coil), selftest_shapes
 """
 
 import math
@@ -301,7 +301,7 @@ def winding_display_mesh(obj, params):
         return mesh
     # solid: the exact wound annulus — geometry still DERIVES from
     # the same object (outer radius from layers x fineness).
-    from mathshapes.shape_geometry import tube_mesh
+    from mathshapes.custom.shape_geometry import tube_mesh
     layers = math.ceil(obj['N'] / obj['tpl'])
     outer = obj['r0'] + layers * obj['d']
     axis = ('x' if abs(obj['M'][2][0]) > 0.9 else

@@ -2,7 +2,7 @@
 Selftest — shape-1: math-defined shapes core (quadric / primitive / CSG).
 
 Run from polari-framework/:
-    python3 -m mathshapes.selftest_shapes
+    python3 -m mathshapes.shapes_selftest
 
 Covers the shape-1 acceptance: quadric classification from the matrix Q
 (sphere/ellipsoid/cylinder/cone); analytic primitive volumes match their
@@ -15,7 +15,7 @@ render points (+ triangles for primitives).
 import math
 from types import SimpleNamespace
 
-from mathshapes.shape_analysis import (
+from mathshapes.custom.shape_analysis import (
     classify_quadric_matrix, evaluate_point, quadric_classify,
     sample_surface, shape_properties,
 )

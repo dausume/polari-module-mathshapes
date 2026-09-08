@@ -1,6 +1,6 @@
 """
 @cross-cutting
-@module mathshapes.cad_import
+@module mathshapes.custom.cad_import
 @tags @xc:bindings, @xc:render-3d
 
 Orchestrates CAD import/export across three seams: the cad-engines
@@ -28,7 +28,8 @@ it without the live treeObject machinery.
 import base64
 import json
 
-from mathshapes import cad_minio, cad_remote
+from mathshapes import cad_remote
+from mathshapes.custom import cad_minio
 
 _THREEJS_EXPORT = 'three-json'
 
@@ -73,7 +74,7 @@ def _three_json_inline(points, triangles):
     if flat_idx:
         data['index'] = {'type': 'Uint32Array', 'array': flat_idx}
     return json.dumps({'metadata': {'version': 4.5, 'type': 'BufferGeometry',
-                                    'generator': 'mathshapes.cad_import'},
+                                    'generator': 'mathshapes.custom.cad_import'},
                        'type': 'BufferGeometry', 'data': data})
 
 
@@ -186,7 +187,7 @@ def _shape_mesh(manager, shape):
         except (TypeError, ValueError):
             cached = {}
         return cached.get('meshPoints', []), cached.get('triangles', [])
-    from mathshapes.shape_analysis import sample_surface
+    from mathshapes.custom.shape_analysis import sample_surface
     res = sample_surface(manager, getattr(shape, 'name', ''))
     if not res.get('ok'):
         return [], []

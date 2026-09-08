@@ -1,6 +1,6 @@
 """
 @cross-cutting
-@module mathshapes.pot_scene
+@module mathshapes.custom.pot_scene
 @tags @xc:render-shared, @xc:render-3d, @xc:bindings
 
 aquaponics-pot-shape phase 1 — the SimSpace side of "render the aqp-1
